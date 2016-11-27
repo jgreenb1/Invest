@@ -32,11 +32,11 @@ data1<-data[,c("Date","Schwab.Checking","Ally","US.Bank","Kat.China.Savings",
 	"Schwab.Savings","EastWest.PHP","EastWest.USD","Apt..Equity","Roth.IRA.Cash",
 	"Roth.IRA.Stock","Schwab.Cash","Schwab.Stock","Vanguard.Funds","Vanguard.IRA",
 	"Google.401K","Treasury","PS.401K","Giller.Loan.Gold","Etrade","Kat.IRA","Kat.401K",
-	"Shorepoint")]
+	"Shorepoint","Kat.RH.401K")]
 
 data1$Cash<-data1$Schwab.Checking+data1$Schwab.Savings+data1$Ally+data1$US.Bank+
-data1$Kat.China.Savings+data1$EastWest.PHP+data1$EastWest.USD+data1$Schwab.Cash
-data1$Retire_401K<-data1$PS.401K+data1$Kat.401K+data1$Google.401K
+data1$Kat.China.Savings+data1$Schwab.Savings+data1$EastWest.PHP+data1$EastWest.USD+data1$Schwab.Cash
+data1$Retire_401K<-data1$PS.401K+data1$Kat.401K+data1$Google.401K+data1$Kat.RH.401K
 data1$Retire_IRA<-data1$Roth.IRA.Cash+data1$Roth.IRA.Stock+data1$Vanguard.IRA+data1$Kat.IRA
 data1$Stock<-data1$Schwab.Stock+data1$Vanguard.Funds+data1$Etrade
 data1$Other<-data1$Treasury+data1$Giller.Loan.Gold

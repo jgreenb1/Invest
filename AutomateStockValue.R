@@ -32,8 +32,9 @@ pur12<-2482
 pur13<-3875
 totpur<-prettyNum(2411+2482+3875,big.mark=",")
 sale11<-6937
+sale12<-4938
 divi1<-paste0(round(100*(data$CAR_Dividends[max(which(data$CAR_Dividends>0),1)]*4/data$CAR_Shares[length(data$CAR_Shares)])/data$CAR_Price[length(data$CAR_Price)],2),"%")
-return1<-paste0(round(100*((data$CAR_Price[last]*data$CAR_Shares[last]-pur11-pur12-pur13+sale11)/(pur11+pur12+pur13))/(as.numeric(difftime(data$Date[length(data$Date)],data$Date[159],units="days"))/365),2),"%")
+return1<-paste0(round(100*((data$CAR_Price[last]*data$CAR_Shares[last]-pur11-pur12-pur13+sale11+sale12)/(pur11+pur12+pur13))/(as.numeric(difftime(data$Date[length(data$Date)],data$Date[159],units="days"))/365),2),"%")
 return1year1<-paste0(round(100*(data$CAR_Price[last]-data$CAR_Price[yearago])/data$CAR_Price[yearago],2),"%")
 return1a<-return1
 return1year1a<-return1year1
@@ -42,7 +43,8 @@ leg1<-c(paste0("Purchase 1 = $",prettyNum(pur11,big.mark=",")," (2/19/13)"),
 	paste0("Purchase 2 = $",prettyNum(pur12,big.mark=",")," (10/10/13)"),
 	paste0("Purchase 3 = $",prettyNum(pur13,big.mark=",")," (10/24/13)"),
 	paste0("Total Purchases = $",totpur)," ",
-	paste0("Sale 1 = $",prettyNum(sale11,big.mark=",")," (12/23/14)")," ",
+	paste0("Sale 1 = $",prettyNum(sale11,big.mark=",")," (12/23/14)"),
+	paste0("Sale 2 = $",prettyNum(sale12,big.mark=",")," (11/28/16)")," ",
 	paste0("Appreciation = $",prettyNum(round(data$CAR_Price[last]*data$CAR_Shares[last]-pur11-pur12-pur13+sale11,0),big.mark=",")),
 	"Dividends = $0"," ",
 	paste0("Annual Return (Total) = ",return1a),
@@ -55,6 +57,7 @@ leg1<-c(paste0("Purchase 1 = $",prettyNum(pur11,big.mark=",")," (2/19/13)"),
 data$CAR_Value<-data$CAR_Shares*data$CAR_Price
 data$CAR_Value1<-data$CAR_Value
 data$CAR_Value1[data$Date>=as.Date("2014-12-23")]<-data$CAR_Value1[data$Date>=as.Date("2014-12-23")]+sale11
+data$CAR_Value1[data$Date>=as.Date("2016-11-28")]<-data$CAR_Value1[data$Date>=as.Date("2016-11-28")]+sale12
 
 jpeg(fileName,width=1200,height=800,quality=100)
 par(mar=c(6,5,5,5))
@@ -653,6 +656,40 @@ axis(4,at=seq(0,maxmax18,by=500),labels=paste0("$",gsub(" ","",prettyNum(seq(0,m
 for (i in seq(0,maxmax18,by=250))
 	{abline(h=i,lty=3,col="lightgray")}
 legend("topleft",leg18,pch=15,col="white")
+dev.off()
+
+###### FB
+fileName19<-paste0("FB_",gsub("-","",today),".jpeg")
+
+maxmax19<-ceiling(max(data$FB_Price*data$FB_Shares)/500)*500
+orig19<-4825
+current19<-paste0("$",prettyNum(round(data$FB_Price[last]*data$FB_Shares[last],0),big.mark=","))
+divi19<-paste0(round(100*sum(data$FB_Dividends[data$Date>=yearago1])/(data$FB_Price[last]*data$FB_Shares[last]),2),"%")
+return19<-paste0(round(100*((data$FB_Price[length(data$FB_Price)]-120.625)/120.625)/(as.numeric(difftime(data$Date[length(data$Date)],data$Date[345],units="days"))/365),2),"%")
+return1year19<-paste0(round(100*(data$FB_Price[last]-data$FB_Price[yearago])/data$FB_Price[yearago],2),"%")
+return19a<-paste0(round((100*(data$FB_Price[last]*data$FB_Shares[last]+sum(data$FB_Dividends)-orig19)/orig19)/(as.numeric(difftime(data$Date[length(data$Date)],data$Date[345],units="days"))/365),2),"%")
+return1year19a<-paste0(round(100*(data$FB_Price[last]*data$FB_Shares[last]+sum(data$FB_Dividends[data$Date>=yearago1])-data$FB_Price[yearago]*data$FB_Shares[yearago])/(data$FB_Price[yearago]*data$FB_Shares[yearago]),2),"%")
+
+leg19<-c(paste0("Original Value = $",prettyNum(round(orig19,0),big.mark=",")),
+         paste0("Current Value = ",current19),"",
+         paste0("Appreciation = $",round(data$FB_Price[last]*data$FB_Shares[last]-orig19,0)),
+         paste0("Dividends = $",round(sum(data$FB_Dividends),0))," ",
+         paste0("Annual Return (Total) = ",return19a),
+         paste0("Annual Return (Appreciation Only) = ",return19),
+         paste0("Return (Total - 1 year) = ",return1year19a),
+         paste0("Return (Appreciation Only - 1 year) = ",return1year19),
+         paste0("Dividend Yield = ",divi19))
+
+jpeg(fileName19,width=1200,height=800,quality=100)
+par(mar=c(6,5,5,5))
+plot(data$FB_Price*data$FB_Shares,type="l",lwd=3,col=col.9[5],ylim=c(0,maxmax19),
+     main="FB Value",xaxt="n",xlab="",yaxt="n",ylab="")
+axis(1,at=seq(1,length(data$Date),by=4),labels=data$Date[seq(1,length(data$Date),by=4)],las=2)
+axis(2,at=seq(0,maxmax19,by=500),labels=paste0("$",gsub(" ","",prettyNum(seq(0,maxmax19,by=500),big.mark=","))),las=2)
+axis(4,at=seq(0,maxmax19,by=500),labels=paste0("$",gsub(" ","",prettyNum(seq(0,maxmax19,by=500),big.mark=","))),las=2)
+for (i in seq(0,maxmax19,by=250))
+{abline(h=i,lty=3,col="lightgray")}
+legend("topleft",leg19,pch=15,col="white")
 dev.off()
 
 

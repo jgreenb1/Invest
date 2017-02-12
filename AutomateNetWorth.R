@@ -21,11 +21,16 @@ thous<-function(x) {
 ###### Date
 today<-as.Date(substr(Sys.time(),0,10))
 today1<-gsub("-","",today)
+curr_month<-gsub("-","",substr(Sys.time(),0,7))
 
 ###### Loading data
 setwd("C:/Users/Jon/Desktop")
 data<-readWorksheet(loadWorkbook("Invest.xlsx"),sheet=1)
-setwd("C:/Users/Jon/Desktop/Investment/NetWorth")
+
+###### Subdirectory
+subdir<-paste0("C:/Users/Jon/Desktop/Investment/NetWorth/NetWorth_",curr_month)
+dir.create(subdir)
+setwd(subdir)
 
 ###### Formatting Data
 data1<-data[,c("Date","Schwab.Checking","Ally","US.Bank","Kat.China.Savings",

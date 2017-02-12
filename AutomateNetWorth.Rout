@@ -1,0 +1,23 @@
+Loading required package: XLConnectJars
+XLConnect 0.2-12 by Mirai Solutions GmbH [aut],
+  Martin Studer [cre],
+  The Apache Software Foundation [ctb, cph] (Apache POI, Apache Commons
+    Codec),
+  Stephen Colebourne [ctb, cph] (Joda-Time Java library),
+  Graph Builder [ctb, cph] (Curvesapi Java library)
+http://www.mirai-solutions.com ,
+http://miraisolutions.wordpress.com
+
+Attaching package: 'dplyr'
+
+The following objects are masked from 'package:stats':
+
+    filter, lag
+
+The following objects are masked from 'package:base':
+
+    intersect, setdiff, setequal, union
+
+> proc.time()
+   user  system elapsed 
+  20.42    1.59   47.79 

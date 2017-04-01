@@ -37,25 +37,26 @@ data1<-data[,c("Date","Schwab.Checking","Ally","US.Bank","Kat.China.Savings",
 	"Schwab.Savings","EastWest.PHP","EastWest.USD","Apt..Equity","Roth.IRA.Cash",
 	"Roth.IRA.Stock","Schwab.Cash","Schwab.Stock","Vanguard.Funds","Vanguard.IRA",
 	"Google.401K","Treasury","PS.401K","Giller.Loan.Gold","Etrade","Kat.IRA","Kat.401K",
-	"Shorepoint","Kat.RH.401K")]
+	"Shorepoint","Kat.RH.401K","Loper.529")]
 
 data1$Cash<-data1$Schwab.Checking+data1$Schwab.Savings+data1$Ally+data1$US.Bank+
-data1$Kat.China.Savings+data1$Schwab.Savings+data1$EastWest.PHP+data1$EastWest.USD+data1$Schwab.Cash
+  data1$Kat.China.Savings+data1$Schwab.Savings+data1$EastWest.PHP+data1$EastWest.USD+data1$Schwab.Cash
 data1$Retire_401K<-data1$PS.401K+data1$Kat.401K+data1$Google.401K+data1$Kat.RH.401K
 data1$Retire_IRA<-data1$Roth.IRA.Cash+data1$Roth.IRA.Stock+data1$Vanguard.IRA+data1$Kat.IRA
 data1$Stock<-data1$Schwab.Stock+data1$Vanguard.Funds+data1$Etrade
 data1$Other<-data1$Treasury+data1$Giller.Loan.Gold
 data1$Property<-data1$Apt..Equity+data1$Shorepoint
+data1$College529<-data1$Loper.529
 
-data2<-data1[,c("Property","Retire_401K","Retire_IRA","Stock","Other","Cash")]
+data2<-data1[,c("Property","Retire_401K","Retire_IRA","Stock","Other","Cash","College529")]
 rownames(data2)<-data1$Date
 data3<-as.matrix(t(data2))
 
 ## ggplot2 format
 data2a<-cbind(data$Date,data2)
-colnames(data2a)<-c("date","Property","Retire_401K","Retire_IRA","Stock","Other","Cash")
+colnames(data2a)<-c("date","Property","Retire_401K","Retire_IRA","Stock","Other","Cash","College_529")
 
-data4<-gather(data2a, condition, measurement, Property:Cash)
+data4<-gather(data2a, condition, measurement, Property:College_529)
 data4$date<-as.Date(data4$date)
 data4$measurement[data4$measurement<0]<-0
 

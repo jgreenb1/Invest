@@ -692,4 +692,38 @@ for (i in seq(0,maxmax19,by=250))
 legend("topleft",leg19,pch=15,col="white")
 dev.off()
 
+###### AMZN
+fileName20<-paste0("AMZN_",gsub("-","",today),".jpeg")
+
+maxmax20<-ceiling(max(data$AMZN_Price*data$AMZN_Shares)/500)*500
+orig20<-4870
+current20<-paste0("$",prettyNum(round(data$AMZN_Price[last]*data$AMZN_Shares[last],0),big.mark=","))
+divi20<-paste0(round(100*sum(data$AMZN_Dividends[data$Date>=yearago1])/(data$AMZN_Price[last]*data$AMZN_Shares[last]),2),"%")
+return20<-paste0(round(100*((data$AMZN_Price[length(data$AMZN_Price)]-974)/974)/(as.numeric(difftime(data$Date[length(data$Date)],data$Date[384],units="days"))/365),2),"%")
+return1year20<-paste0(round(100*(data$AMZN_Price[last]-data$AMZN_Price[yearago])/data$AMZN_Price[yearago],2),"%")
+return20a<-paste0(round((100*(data$AMZN_Price[last]*data$AMZN_Shares[last]+sum(data$AMZN_Dividends)-orig20)/orig20)/(as.numeric(difftime(data$Date[length(data$Date)],data$Date[384],units="days"))/365),2),"%")
+return1year20a<-paste0(round(100*(data$AMZN_Price[last]*data$AMZN_Shares[last]+sum(data$AMZN_Dividends[data$Date>=yearago1])-data$AMZN_Price[yearago]*data$AMZN_Shares[yearago])/(data$AMZN_Price[yearago]*data$AMZN_Shares[yearago]),2),"%")
+
+leg20<-c(paste0("Original Value = $",prettyNum(round(orig20,0),big.mark=",")),
+         paste0("Current Value = ",current20),"",
+         paste0("Appreciation = $",round(data$AMZN_Price[last]*data$AMZN_Shares[last]-orig20,0)),
+         paste0("Dividends = $",round(sum(data$AMZN_Dividends),0))," ",
+         paste0("Annual Return (Total) = ",return20a),
+         paste0("Annual Return (Appreciation Only) = ",return20),
+         paste0("Return (Total - 1 year) = ",return1year20a),
+         paste0("Return (Appreciation Only - 1 year) = ",return1year20),
+         paste0("Dividend Yield = ",divi20))
+
+jpeg(fileName20,width=1200,height=800,quality=100)
+par(mar=c(6,5,5,5))
+plot(data$AMZN_Price*data$AMZN_Shares,type="l",lwd=3,col=col.9[5],ylim=c(0,maxmax20),
+     main="AMZN Value",xaxt="n",xlab="",yaxt="n",ylab="")
+axis(1,at=seq(1,length(data$Date),by=4),labels=data$Date[seq(1,length(data$Date),by=4)],las=2)
+axis(2,at=seq(0,maxmax20,by=500),labels=paste0("$",gsub(" ","",prettyNum(seq(0,maxmax20,by=500),big.mark=","))),las=2)
+axis(4,at=seq(0,maxmax20,by=500),labels=paste0("$",gsub(" ","",prettyNum(seq(0,maxmax20,by=500),big.mark=","))),las=2)
+for (i in seq(0,maxmax20,by=250))
+{abline(h=i,lty=3,col="lightgray")}
+legend("topleft",leg20,pch=15,col="white")
+dev.off()
+
 

@@ -726,4 +726,38 @@ for (i in seq(0,maxmax20,by=250))
 legend("topleft",leg20,pch=15,col="white")
 dev.off()
 
+###### TCEHY
+fileName21<-paste0("TCEHY_",gsub("-","",today),".jpeg")
+
+maxmax21<-ceiling(max(data$TCEHY_Price*data$TCEHY_Shares)/500)*500
+orig21<-5070
+current21<-paste0("$",prettyNum(round(data$TCEHY_Price[last]*data$TCEHY_Shares[last],0),big.mark=","))
+divi21<-paste0(round(100*sum(data$TCEHY_Dividends[data$Date>=yearago1])/(data$TCEHY_Price[last]*data$TCEHY_Shares[last]),2),"%")
+return21<-paste0(round(100*((data$TCEHY_Price[length(data$TCEHY_Price)]-50.7)/50.7)/(as.numeric(difftime(data$Date[length(data$Date)],data$Date[400],units="days"))/365),2),"%")
+return1year21<-paste0(round(100*(data$TCEHY_Price[last]-data$TCEHY_Price[yearago])/data$TCEHY_Price[yearago],2),"%")
+return21a<-paste0(round((100*(data$TCEHY_Price[last]*data$TCEHY_Shares[last]+sum(data$TCEHY_Dividends)-orig21)/orig21)/(as.numeric(difftime(data$Date[length(data$Date)],data$Date[400],units="days"))/365),2),"%")
+return1year21a<-paste0(round(100*(data$TCEHY_Price[last]*data$TCEHY_Shares[last]+sum(data$TCEHY_Dividends[data$Date>=yearago1])-data$TCEHY_Price[yearago]*data$TCEHY_Shares[yearago])/(data$TCEHY_Price[yearago]*data$TCEHY_Shares[yearago]),2),"%")
+
+leg21<-c(paste0("Original Value = $",prettyNum(round(orig21,0),big.mark=",")),
+         paste0("Current Value = ",current21),"",
+         paste0("Appreciation = $",round(data$TCEHY_Price[last]*data$TCEHY_Shares[last]-orig21,0)),
+         paste0("Dividends = $",round(sum(data$TCEHY_Dividends),0))," ",
+         paste0("Annual Return (Total) = ",return21a),
+         paste0("Annual Return (Appreciation Only) = ",return21),
+         paste0("Return (Total - 1 year) = ",return1year21a),
+         paste0("Return (Appreciation Only - 1 year) = ",return1year21),
+         paste0("Dividend Yield = ",divi21))
+
+jpeg(fileName21,width=1200,height=800,quality=100)
+par(mar=c(6,5,5,5))
+plot(data$TCEHY_Price*data$TCEHY_Shares,type="l",lwd=3,col=col.9[5],ylim=c(0,maxmax21),
+     main="TCEHY Value",xaxt="n",xlab="",yaxt="n",ylab="")
+axis(1,at=seq(1,length(data$Date),by=4),labels=data$Date[seq(1,length(data$Date),by=4)],las=2)
+axis(2,at=seq(0,maxmax21,by=500),labels=paste0("$",gsub(" ","",prettyNum(seq(0,maxmax21,by=500),big.mark=","))),las=2)
+axis(4,at=seq(0,maxmax21,by=500),labels=paste0("$",gsub(" ","",prettyNum(seq(0,maxmax21,by=500),big.mark=","))),las=2)
+for (i in seq(0,maxmax21,by=250))
+{abline(h=i,lty=3,col="lightgray")}
+legend("topleft",leg21,pch=15,col="white")
+dev.off()
+
 

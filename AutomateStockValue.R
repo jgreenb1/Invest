@@ -760,4 +760,38 @@ for (i in seq(0,maxmax21,by=250))
 legend("topleft",leg21,pch=15,col="white")
 dev.off()
 
+###### AAPL
+fileName22<-paste0("AAPL_",gsub("-","",today),".jpeg")
+
+maxmax22<-ceiling(max(data$AAPL_Price*data$AAPL_Shares)/500)*500
+orig22<-3979.5
+current22<-paste0("$",prettyNum(round(data$AAPL_Price[last]*data$AAPL_Shares[last],0),big.mark=","))
+divi22<-paste0(round(100*sum(data$AAPL_Dividends[data$Date>=yearago1])/(data$AAPL_Price[last]*data$AAPL_Shares[last]),2),"%")
+return22<-paste0(round(100*((data$AAPL_Price[length(data$AAPL_Price)]-159.18)/159.18)/(as.numeric(difftime(data$Date[length(data$Date)],data$Date[406],units="days"))/365),2),"%")
+return1year22<-paste0(round(100*(data$AAPL_Price[last]-data$AAPL_Price[yearago])/data$AAPL_Price[yearago],2),"%")
+return22a<-paste0(round((100*(data$AAPL_Price[last]*data$AAPL_Shares[last]+sum(data$AAPL_Dividends)-orig22)/orig22)/(as.numeric(difftime(data$Date[length(data$Date)],data$Date[406],units="days"))/365),2),"%")
+return1year22a<-paste0(round(100*(data$AAPL_Price[last]*data$AAPL_Shares[last]+sum(data$AAPL_Dividends[data$Date>=yearago1])-data$AAPL_Price[yearago]*data$AAPL_Shares[yearago])/(data$AAPL_Price[yearago]*data$AAPL_Shares[yearago]),2),"%")
+
+leg22<-c(paste0("Original Value = $",prettyNum(round(orig22,0),big.mark=",")),
+         paste0("Current Value = ",current22),"",
+         paste0("Appreciation = $",round(data$AAPL_Price[last]*data$AAPL_Shares[last]-orig22,0)),
+         paste0("Dividends = $",round(sum(data$AAPL_Dividends),0))," ",
+         paste0("Annual Return (Total) = ",return22a),
+         paste0("Annual Return (Appreciation Only) = ",return22),
+         paste0("Return (Total - 1 year) = ",return1year22a),
+         paste0("Return (Appreciation Only - 1 year) = ",return1year22),
+         paste0("Dividend Yield = ",divi22))
+
+jpeg(fileName22,width=1200,height=800,quality=100)
+par(mar=c(6,5,5,5))
+plot(data$AAPL_Price*data$AAPL_Shares,type="l",lwd=3,col=col.9[5],ylim=c(0,maxmax22),
+     main="AAPL Value",xaxt="n",xlab="",yaxt="n",ylab="")
+axis(1,at=seq(1,length(data$Date),by=4),labels=data$Date[seq(1,length(data$Date),by=4)],las=2)
+axis(2,at=seq(0,maxmax22,by=500),labels=paste0("$",gsub(" ","",prettyNum(seq(0,maxmax22,by=500),big.mark=","))),las=2)
+axis(4,at=seq(0,maxmax22,by=500),labels=paste0("$",gsub(" ","",prettyNum(seq(0,maxmax22,by=500),big.mark=","))),las=2)
+for (i in seq(0,maxmax22,by=250))
+{abline(h=i,lty=3,col="lightgray")}
+legend("topleft",leg22,pch=15,col="white")
+dev.off()
+
 

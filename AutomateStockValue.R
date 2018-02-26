@@ -662,18 +662,23 @@ dev.off()
 fileName19<-paste0("FB_",gsub("-","",today),".jpeg")
 
 maxmax19<-ceiling(max(data$FB_Price*data$FB_Shares)/500)*500
-orig19<-4825
+pur19a<-4825
+pur19b<-6900
+totpur19<-prettyNum(pur19a+pur19b,big.mark=",")
+totpur19a<-pur19a+pur19b
 current19<-paste0("$",prettyNum(round(data$FB_Price[last]*data$FB_Shares[last],0),big.mark=","))
 divi19<-paste0(round(100*sum(data$FB_Dividends[data$Date>=yearago1])/(data$FB_Price[last]*data$FB_Shares[last]),2),"%")
-return19<-paste0(round(100*((data$FB_Price[length(data$FB_Price)]-120.625)/120.625)/(as.numeric(difftime(data$Date[length(data$Date)],data$Date[345],units="days"))/365),2),"%")
+return19<-paste0(round((100*(data$FB_Price[last]*data$FB_Shares[last]-totpur19a)/totpur19a)/(as.numeric(difftime(data$Date[length(data$Date)],data$Date[345],units="days"))/365),2),"%")
 return1year19<-paste0(round(100*(data$FB_Price[last]-data$FB_Price[yearago])/data$FB_Price[yearago],2),"%")
-return19a<-paste0(round((100*(data$FB_Price[last]*data$FB_Shares[last]+sum(data$FB_Dividends)-orig19)/orig19)/(as.numeric(difftime(data$Date[length(data$Date)],data$Date[345],units="days"))/365),2),"%")
+return19a<-paste0(round((100*(data$FB_Price[last]*data$FB_Shares[last]+sum(data$FB_Dividends)-totpur19a)/totpur19a)/(as.numeric(difftime(data$Date[length(data$Date)],data$Date[345],units="days"))/365),2),"%")
 return1year19a<-paste0(round(100*(data$FB_Price[last]*data$FB_Shares[last]+sum(data$FB_Dividends[data$Date>=yearago1])-data$FB_Price[yearago]*data$FB_Shares[yearago])/(data$FB_Price[yearago]*data$FB_Shares[yearago]),2),"%")
 
-leg19<-c(paste0("Original Value = $",prettyNum(round(orig19,0),big.mark=",")),
+leg19<-c(paste0("Purchase 1 = $",prettyNum(round(pur19a,0),big.mark=",")),
+         paste0("Purchase 2 = $",prettyNum(round(pur19b,0),big.mark=",")),
+         paste0("Total Purchases = $",prettyNum(round(totpur19a,0),big.mark=",")),
          paste0("Current Value = ",current19),"",
-         paste0("Appreciation = $",round(data$FB_Price[last]*data$FB_Shares[last]-orig19,0)),
-         paste0("Dividends = $",round(sum(data$FB_Dividends),0))," ",
+         paste0("Appreciation = $",round(data$FB_Price[last]*data$FB_Shares[last]-totpur19a,0)),
+         paste0("Dividends = $",round(sum(data$FB_Dividends),0)),
          paste0("Annual Return (Total) = ",return19a),
          paste0("Annual Return (Appreciation Only) = ",return19),
          paste0("Return (Total - 1 year) = ",return1year19a),

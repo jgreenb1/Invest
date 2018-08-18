@@ -37,7 +37,7 @@ data1<-data[,c("Date","Schwab.Checking","Ally","US.Bank","Kat.China.Savings",
 	"Schwab.Savings","EastWest.PHP","EastWest.USD","Apt..Equity","Roth.IRA.Cash",
 	"Roth.IRA.Stock","Schwab.Cash","Schwab.Stock","Vanguard.Funds","Vanguard.IRA",
 	"Google.401K","Treasury","PS.401K","Giller.Loan.Gold","Etrade","Kat.IRA","Kat.401K",
-	"Shorepoint","Kat.RH.401K","Loper.529","X4362.High.Meadow")]
+	"Shorepoint","Kat.RH.401K","Loper.529","X4362.High.Meadow","X6999.Knollwood")]
 
 data1$Cash<-data1$Schwab.Checking+data1$Schwab.Savings+data1$Ally+data1$US.Bank+
   data1$Kat.China.Savings+data1$Schwab.Savings+data1$EastWest.PHP+data1$EastWest.USD+data1$Schwab.Cash
@@ -45,7 +45,7 @@ data1$Retire_401K<-data1$PS.401K+data1$Kat.401K+data1$Google.401K+data1$Kat.RH.4
 data1$Retire_IRA<-data1$Roth.IRA.Cash+data1$Roth.IRA.Stock+data1$Vanguard.IRA+data1$Kat.IRA
 data1$Stock<-data1$Schwab.Stock+data1$Vanguard.Funds+data1$Etrade
 data1$Other<-data1$Treasury+data1$Giller.Loan.Gold
-data1$Property<-data1$Apt..Equity+data1$Shorepoint+data1$X4362.High.Meadow
+data1$Property<-data1$Apt..Equity+data1$Shorepoint+data1$X4362.High.Meadow+data1$X6999.Knollwood
 data1$College529<-data1$Loper.529
 
 data2<-data1[,c("Property","Retire_401K","Retire_IRA","Stock","Other","Cash","College529")]
@@ -81,7 +81,7 @@ theme_plot<-theme(
 fileName<-paste0("NetWorth_",gsub("-","",today),".png")
 ggplot(data=data4,aes(x=date,y=measurement,fill=condition)) +
   geom_area(colour="black",size=0.5,alpha=0.6) +
-  scale_y_continuous(breaks=seq(0,1000000,by=100000),labels=thous) +
+  scale_y_continuous(breaks=seq(0,2000000,by=100000),labels=thous) +
   scale_x_date(date_breaks="6 months",labels=date_format("%b\n%Y")) + 
   xlab("") + ylab("") + theme_plot
 ggsave(fileName,height=8,width=13)

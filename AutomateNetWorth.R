@@ -99,7 +99,7 @@ ggsave(fileName1,height=8,width=13)
 fileName2<-paste0("InvestmentClasses_",gsub("-","",today),".png")
 ggplot(data=data4,aes(x=date,y=measurement,colour=condition,group=condition)) +
   geom_line(size=2) +
-  scale_y_continuous(breaks=seq(0,300000,by=25000),labels=thous) +
+  scale_y_continuous(breaks=seq(0,500000,by=50000),labels=thous) +
   scale_x_date(date_breaks="6 months",labels=date_format("%b\n%Y")) + 
   xlab("") + ylab("") + theme_plot
 ggsave(fileName2,height=8,width=13)

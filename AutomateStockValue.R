@@ -627,18 +627,27 @@ dev.off()
 ###### NFLX
 fileName18<-paste0("NFLX_",gsub("-","",today),".jpeg")
 
-maxmax18<-ceiling(max(data$NFLX_Price*data$NFLX_Shares)/500)*500
+maxmax18<-ceiling(max(data$NFLX_Price*data$NFLX_Shares)/2000)*2000
 orig18<-3794.8
+
+sale18a<-3888
+sale18b<-4702
+sale18c<-5105
+
 current18<-paste0("$",prettyNum(round(data$NFLX_Price[last]*data$NFLX_Shares[last],0),big.mark=","))
 divi18<-paste0(round(100*sum(data$NFLX_Dividends[data$Date>=yearago1])/(data$NFLX_Price[last]*data$NFLX_Shares[last]),2),"%")
-return18<-paste0(round(100*((data$NFLX_Price[length(data$NFLX_Price)]-94.87)/94.87)/(as.numeric(difftime(data$Date[length(data$Date)],data$Date[305],units="days"))/365),2),"%")
-return1year18<-paste0(round(100*(data$NFLX_Price[last]-data$NFLX_Price[yearago])/data$NFLX_Price[yearago],2),"%")
-return18a<-paste0(round((100*(data$NFLX_Price[last]*data$NFLX_Shares[last]+sum(data$NFLX_Dividends)-orig18)/orig18)/(as.numeric(difftime(data$Date[length(data$Date)],data$Date[305],units="days"))/365),2),"%")
+return18<-paste0(round(((sale18a+sale18b+sale18c-orig18)/orig18)*100/(as.numeric(difftime(data$Date[436],data$Date[305],units="days"))/365),2),"%")
+return1year18<-paste0(round(((sale18a+sale18b+sale18c-orig18)/orig18)*100/(as.numeric(difftime(data$Date[436],data$Date[305],units="days"))/365),2),"%")
+return18a<-paste0(round(((sale18a+sale18b+sale18c-orig18)/orig18)*100/(as.numeric(difftime(data$Date[436],data$Date[305],units="days"))/365),2),"%")
 return1year18a<-paste0(round(100*(data$NFLX_Price[last]*data$NFLX_Shares[last]+sum(data$NFLX_Dividends[data$Date>=yearago1])-data$NFLX_Price[yearago]*data$NFLX_Shares[yearago])/(data$NFLX_Price[yearago]*data$NFLX_Shares[yearago]),2),"%")
 
 leg18<-c(paste0("Original Value = $",prettyNum(round(orig18,0),big.mark=",")),
+  paste0("Sale 1 = $",prettyNum(sale18a,big.mark=",")," (6/1/18)"),
+  paste0("Sale 2 = $",prettyNum(sale18b,big.mark=",")," (8/17/18)"),
+  paste0("Sale 3 = $",prettyNum(sale18c,big.mark=",")," (8/30/18)"),
+  paste0("Total Sales = $",prettyNum(sale18a+sale18b+sale18c,big.mark=",")),
 	paste0("Current Value = ",current18),"",
-	paste0("Appreciation = $",round(data$NFLX_Price[last]*data$NFLX_Shares[last]-orig18,0)),
+	paste0("Appreciation = $",sale18a+sale18b+sale18c-orig18,0),
 	paste0("Dividends = $",round(sum(data$NFLX_Dividends),0))," ",
 	paste0("Annual Return (Total) = ",return18a),
 	paste0("Annual Return (Appreciation Only) = ",return18),
@@ -651,9 +660,9 @@ par(mar=c(6,5,5,5))
 plot(data$NFLX_Price*data$NFLX_Shares,type="l",lwd=3,col=col.9[5],ylim=c(0,maxmax18),
 	main="NFLX Value",xaxt="n",xlab="",yaxt="n",ylab="")
 axis(1,at=seq(1,length(data$Date),by=4),labels=data$Date[seq(1,length(data$Date),by=4)],las=2)
-axis(2,at=seq(0,maxmax18,by=500),labels=paste0("$",gsub(" ","",prettyNum(seq(0,maxmax18,by=500),big.mark=","))),las=2)
-axis(4,at=seq(0,maxmax18,by=500),labels=paste0("$",gsub(" ","",prettyNum(seq(0,maxmax18,by=500),big.mark=","))),las=2)
-for (i in seq(0,maxmax18,by=250))
+axis(2,at=seq(0,maxmax18,by=2000),labels=paste0("$",gsub(" ","",prettyNum(seq(0,maxmax18,by=2000),big.mark=","))),las=2)
+axis(4,at=seq(0,maxmax18,by=2000),labels=paste0("$",gsub(" ","",prettyNum(seq(0,maxmax18,by=2000),big.mark=","))),las=2)
+for (i in seq(0,maxmax18,by=1000))
 	{abline(h=i,lty=3,col="lightgray")}
 legend("topleft",leg18,pch=15,col="white")
 dev.off()
@@ -661,11 +670,12 @@ dev.off()
 ###### FB
 fileName19<-paste0("FB_",gsub("-","",today),".jpeg")
 
-maxmax19<-ceiling(max(data$FB_Price*data$FB_Shares)/500)*500
+maxmax19<-ceiling(max(data$FB_Price*data$FB_Shares)/2000)*2000
 pur19a<-4825
 pur19b<-6900
-totpur19<-prettyNum(pur19a+pur19b,big.mark=",")
-totpur19a<-pur19a+pur19b
+pur19c<-9402
+totpur19<-prettyNum(pur19a+pur19b+pur19c,big.mark=",")
+totpur19a<-pur19a+pur19b+pur19c
 current19<-paste0("$",prettyNum(round(data$FB_Price[last]*data$FB_Shares[last],0),big.mark=","))
 divi19<-paste0(round(100*sum(data$FB_Dividends[data$Date>=yearago1])/(data$FB_Price[last]*data$FB_Shares[last]),2),"%")
 return19<-paste0(round((100*(data$FB_Price[last]*data$FB_Shares[last]-totpur19a)/totpur19a)/(as.numeric(difftime(data$Date[length(data$Date)],data$Date[345],units="days"))/365),2),"%")
@@ -675,6 +685,7 @@ return1year19a<-paste0(round(100*(data$FB_Price[last]*data$FB_Shares[last]+sum(d
 
 leg19<-c(paste0("Purchase 1 = $",prettyNum(round(pur19a,0),big.mark=",")),
          paste0("Purchase 2 = $",prettyNum(round(pur19b,0),big.mark=",")),
+         paste0("Purchase 3 = $",prettyNum(round(pur19c,0),big.mark=",")),
          paste0("Total Purchases = $",prettyNum(round(totpur19a,0),big.mark=",")),
          paste0("Current Value = ",current19),"",
          paste0("Appreciation = $",round(data$FB_Price[last]*data$FB_Shares[last]-totpur19a,0)),
@@ -690,9 +701,9 @@ par(mar=c(6,5,5,5))
 plot(data$FB_Price*data$FB_Shares,type="l",lwd=3,col=col.9[5],ylim=c(0,maxmax19),
      main="FB Value",xaxt="n",xlab="",yaxt="n",ylab="")
 axis(1,at=seq(1,length(data$Date),by=4),labels=data$Date[seq(1,length(data$Date),by=4)],las=2)
-axis(2,at=seq(0,maxmax19,by=500),labels=paste0("$",gsub(" ","",prettyNum(seq(0,maxmax19,by=500),big.mark=","))),las=2)
-axis(4,at=seq(0,maxmax19,by=500),labels=paste0("$",gsub(" ","",prettyNum(seq(0,maxmax19,by=500),big.mark=","))),las=2)
-for (i in seq(0,maxmax19,by=250))
+axis(2,at=seq(0,maxmax19,by=2000),labels=paste0("$",gsub(" ","",prettyNum(seq(0,maxmax19,by=2000),big.mark=","))),las=2)
+axis(4,at=seq(0,maxmax19,by=2000),labels=paste0("$",gsub(" ","",prettyNum(seq(0,maxmax19,by=2000),big.mark=","))),las=2)
+for (i in seq(0,maxmax19,by=1000))
 {abline(h=i,lty=3,col="lightgray")}
 legend("topleft",leg19,pch=15,col="white")
 dev.off()
@@ -735,18 +746,26 @@ dev.off()
 fileName21<-paste0("TCEHY_",gsub("-","",today),".jpeg")
 
 maxmax21<-ceiling(max(data$TCEHY_Price*data$TCEHY_Shares)/500)*500
-orig21<-5070
+pur21a<-5070
+pur21b<-2917
+pur21c<-5014
+
+totpur21<-prettyNum(pur21a+pur21b+pur21c,big.mark=",")
+totpur21a<-pur21a+pur21b+pur21c
 current21<-paste0("$",prettyNum(round(data$TCEHY_Price[last]*data$TCEHY_Shares[last],0),big.mark=","))
 divi21<-paste0(round(100*sum(data$TCEHY_Dividends[data$Date>=yearago1])/(data$TCEHY_Price[last]*data$TCEHY_Shares[last]),2),"%")
-return21<-paste0(round(100*((data$TCEHY_Price[length(data$TCEHY_Price)]-50.7)/50.7)/(as.numeric(difftime(data$Date[length(data$Date)],data$Date[400],units="days"))/365),2),"%")
+return21<-paste0(round((100*(data$TCEHY_Price[last]*data$TCEHY_Shares[last]-totpur21a)/totpur21a)/(as.numeric(difftime(data$Date[length(data$Date)],data$Date[400],units="days"))/365),2),"%")
 return1year21<-paste0(round(100*(data$TCEHY_Price[last]-data$TCEHY_Price[yearago])/data$TCEHY_Price[yearago],2),"%")
-return21a<-paste0(round((100*(data$TCEHY_Price[last]*data$TCEHY_Shares[last]+sum(data$TCEHY_Dividends)-orig21)/orig21)/(as.numeric(difftime(data$Date[length(data$Date)],data$Date[400],units="days"))/365),2),"%")
+return21a<-paste0(round((100*(data$TCEHY_Price[last]*data$TCEHY_Shares[last]+sum(data$TCEHY_Dividends)-totpur21a)/totpur21a)/(as.numeric(difftime(data$Date[length(data$Date)],data$Date[400],units="days"))/365),2),"%")
 return1year21a<-paste0(round(100*(data$TCEHY_Price[last]*data$TCEHY_Shares[last]+sum(data$TCEHY_Dividends[data$Date>=yearago1])-data$TCEHY_Price[yearago]*data$TCEHY_Shares[yearago])/(data$TCEHY_Price[yearago]*data$TCEHY_Shares[yearago]),2),"%")
 
-leg21<-c(paste0("Original Value = $",prettyNum(round(orig21,0),big.mark=",")),
+leg21<-c(paste0("Purchase 1 = $",prettyNum(round(pur21a,0),big.mark=",")),
+         paste0("Purchase 2 = $",prettyNum(round(pur21b,0),big.mark=",")),
+         paste0("Purchase 3 = $",prettyNum(round(pur21c,0),big.mark=",")),
+         paste0("Total Purchases = $",prettyNum(round(totpur21a,0),big.mark=",")),
          paste0("Current Value = ",current21),"",
-         paste0("Appreciation = $",round(data$TCEHY_Price[last]*data$TCEHY_Shares[last]-orig21,0)),
-         paste0("Dividends = $",round(sum(data$TCEHY_Dividends),0))," ",
+         paste0("Appreciation = $",round(data$TCEHY_Price[last]*data$TCEHY_Shares[last]-totpur21a,0)),
+         paste0("Dividends = $",round(sum(data$TCEHY_Dividends),0)),
          paste0("Annual Return (Total) = ",return21a),
          paste0("Annual Return (Appreciation Only) = ",return21),
          paste0("Return (Total - 1 year) = ",return1year21a),
@@ -758,9 +777,9 @@ par(mar=c(6,5,5,5))
 plot(data$TCEHY_Price*data$TCEHY_Shares,type="l",lwd=3,col=col.9[5],ylim=c(0,maxmax21),
      main="TCEHY Value",xaxt="n",xlab="",yaxt="n",ylab="")
 axis(1,at=seq(1,length(data$Date),by=4),labels=data$Date[seq(1,length(data$Date),by=4)],las=2)
-axis(2,at=seq(0,maxmax21,by=500),labels=paste0("$",gsub(" ","",prettyNum(seq(0,maxmax21,by=500),big.mark=","))),las=2)
-axis(4,at=seq(0,maxmax21,by=500),labels=paste0("$",gsub(" ","",prettyNum(seq(0,maxmax21,by=500),big.mark=","))),las=2)
-for (i in seq(0,maxmax21,by=250))
+axis(2,at=seq(0,maxmax21,by=2000),labels=paste0("$",gsub(" ","",prettyNum(seq(0,maxmax21,by=2000),big.mark=","))),las=2)
+axis(4,at=seq(0,maxmax21,by=2000),labels=paste0("$",gsub(" ","",prettyNum(seq(0,maxmax21,by=2000),big.mark=","))),las=2)
+for (i in seq(0,maxmax21,by=1000))
 {abline(h=i,lty=3,col="lightgray")}
 legend("topleft",leg21,pch=15,col="white")
 dev.off()

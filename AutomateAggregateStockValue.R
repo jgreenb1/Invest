@@ -19,6 +19,7 @@ today1<-gsub("-","",today)
 
 ###### Loading data
 data<-readWorksheet(loadWorkbook("C:/Users/Jon/Desktop/StockList2.xlsx"),sheet=1)
+index<-readWorksheet(loadWorkbook("C:/Users/Jon/Desktop/Invest.xlsx"),sheet=1)
 
 ###### Create subdirectory
 newdir<-paste0("C:/Users/Jon/Desktop/Investment/StockTracking/Images_",today1)
@@ -26,6 +27,11 @@ dir.create(newdir)
 setwd(newdir)
 
 ###### Formatting data
+index$Date<-as.Date(index$Date)
+index<-index[!is.na(index$Date),]
+index$Index2<-index$Vanguard.Funds+index$Vanguard.IRA+index$Google.401K+index$PS.401K+index$Kat.401K+index$Kat.RH.401K+index$Loper.529
+index1<-index[,c("Date","Index2")]
+
 data$Date<-as.Date(data$Date)
 data<-data[!is.na(data$Date),]
 data$AAPL_Value<-data$AAPL_Price*data$AAPL_Shares
@@ -51,9 +57,12 @@ data$PEP_Value<-data$PEP_Price*data$PEP_Shares
 data$CAR_Value<-data$CAR_Price*data$CAR_Shares
 data$PRO_Value<-data$PRO_Price*data$PRO_Shares
 data$KING_Value<-data$KING_Price*data$KING_Shares
+data<-merge(data,index1,by.x="Date",by.y="Date",all.x=TRUE)
+data$Index_Value<-data$Index1+data$Index2
+
 data1<-data[,c(1,grep("Value",colnames(data)))]
 colnames(data1)<-gsub("_Value","",colnames(data1))
-data2<-gather(data1,condition,measurement,AAPL:KING)
+data2<-gather(data1,condition,measurement,AAPL:Index)
 
 ###### Plotting
 theme_plot2 <- theme(
@@ -88,3 +97,33 @@ ggplot(data=data2,aes(x=Date,y=measurement,fill=condition)) +
   scale_x_date(date_breaks="12 months",date_labels="%b\n%Y") + 
   xlab("") + ylab("") + theme_plot2
 ggsave(fileName1,height=8,width=13)
+
+fileName1a<-paste0("AggregateStocksPropNoIndex_",gsub("-","",today),".jpeg")
+ggplot(data=data2[data2$condition!="Index",],aes(x=Date,y=measurement,fill=condition)) +
+  geom_area(colour="black",size=0.5,alpha=0.6,position="fill") +
+  ggtitle("Proportion of Aggregate Stock Value by Ticker") +
+  scale_y_continuous(labels=scales::percent) +
+  scale_x_date(date_breaks="12 months",date_labels="%b\n%Y") + 
+  xlab("") + ylab("") + theme_plot2
+ggsave(fileName1a,height=8,width=13)
+
+fileName2<-paste0("StocksLine_",gsub("-","",today),".jpeg")
+ggplot(data=data2[data2$condition!="Index",],aes(x=Date,y=measurement,group=condition,colour=condition)) +
+  geom_line(size=2) +
+  ggtitle("Stock Value by Ticker") +
+  scale_y_continuous(labels=thous) +
+  scale_x_date(date_breaks="12 months",date_labels="%b\n%Y") + 
+  xlab("") + ylab("") + theme_plot2
+ggsave(fileName2,height=8,width=13)
+
+fileName3<-paste0("StocksFacetLine_",gsub("-","",today),".jpeg")
+ggplot(data=data2,aes(x=Date,y=measurement,group=condition,colour=condition)) +
+  geom_line(size=2) +
+  facet_wrap(~condition,scales="free_y") +
+  ggtitle("Stock Value by Ticker") +
+  scale_y_continuous(labels=thous) +
+  scale_x_date(date_labels="%b\n%Y") + 
+  xlab("") + ylab("") + theme_plot2 +
+  expand_limits(y=0)
+ggsave(fileName3,height=8,width=13)
+

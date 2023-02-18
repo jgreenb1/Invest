@@ -1,12 +1,3 @@
-Loading required package: XLConnectJars
-XLConnect 0.2-12 by Mirai Solutions GmbH [aut],
-  Martin Studer [cre],
-  The Apache Software Foundation [ctb, cph] (Apache POI, Apache Commons
-    Codec),
-  Stephen Colebourne [ctb, cph] (Joda-Time Java library),
-  Graph Builder [ctb, cph] (Curvesapi Java library)
-http://www.mirai-solutions.com ,
-http://miraisolutions.wordpress.com
 
 Attaching package: 'dplyr'
 
@@ -18,6 +9,14 @@ The following objects are masked from 'package:base':
 
     intersect, setdiff, setequal, union
 
+New names:
+* `` -> ...35
+* `` -> ...36
+Warning message:
+In dir.create(subdir) :
+  'C:\Users\green\Desktop\Investment\NetWorth\NetWorth_202302' already exists
+Warning message:
+Setting row names on a tibble is deprecated. 
 > proc.time()
    user  system elapsed 
-  20.42    1.59   47.79 
+   3.37    0.90    4.81 

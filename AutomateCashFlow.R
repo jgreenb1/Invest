@@ -1,5 +1,5 @@
 ###### Settings
-setwd("C:/Users/Jon/Desktop/Investment/CashFlowMonthly")
+setwd("C:/Users/green/Desktop/Investment/CashFlowMonthly")
 options(scipen=10)
 library(plyr)
 library(RColorBrewer)
@@ -8,7 +8,7 @@ blue.4<-brewer.pal(4,"Blues")
 today<-gsub("-","",as.Date(Sys.time()))
 
 ###### Loading data
-data<-read.csv("C:/Users/Jon/Desktop/CashFlow.csv")
+data<-read.csv("C:/Users/green/Desktop/CashFlow.csv")
 data$Amount2<-data$Amount
 data$Amount2[data$Category=="Costs"]<-data$Amount2[data$Category=="Costs"]*-1
 

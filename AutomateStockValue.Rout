@@ -1,12 +1,9 @@
-Loading required package: XLConnectJars
-XLConnect 0.2-12 by Mirai Solutions GmbH [aut],
-  Martin Studer [cre],
-  The Apache Software Foundation [ctb, cph] (Apache POI, Apache Commons
-    Codec),
-  Stephen Colebourne [ctb, cph] (Joda-Time Java library),
-  Graph Builder [ctb, cph] (Curvesapi Java library)
-http://www.mirai-solutions.com ,
-http://miraisolutions.wordpress.com
+null device 
+          1 
+null device 
+          1 
+null device 
+          1 
 null device 
           1 
 null device 
@@ -43,4 +40,4 @@ null device
           1 
 > proc.time()
    user  system elapsed 
-  15.17    1.02   10.63 
+   1.09    1.21    2.76 

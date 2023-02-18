@@ -1,0 +1,33 @@
+
+Attaching package: 'dplyr'
+
+The following objects are masked from 'package:stats':
+
+    filter, lag
+
+The following objects are masked from 'package:base':
+
+    intersect, setdiff, setequal, union
+
+Using an auto-discovered, cached token.
+To suppress this message, modify your code or options to clearly consent to the use of a cached token.
+See gargle's "Non-interactive auth" vignette for more details:
+https://gargle.r-lib.org/articles/non-interactive-auth.html
+The googlesheets4 package is using a cached token for greenberg.jon@gmail.com.
+Auto-refreshing stale OAuth token.
+Reading from "RealEstateEquity"
+Range "'965 Shorepoint Equity'"
+Reading from "RealEstateEquity"
+Range "'4362 High Meadow Equity'"
+Reading from "RealEstateEquity"
+Range "'45 Eisenhower Street'"
+Reading from "RealEstateEquity"
+Range "'6999 Knollwood'"
+Reading from "RealEstateEquity"
+Range "'436 Greenbrier Equity'"
+Warning message:
+In dir.create(subdir) :
+  'C:\Users\green\Desktop\Investment\NetWorth\NetWorth_202302' already exists
+> proc.time()
+   user  system elapsed 
+   4.59    0.75   10.07 

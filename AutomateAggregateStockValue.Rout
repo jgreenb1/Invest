@@ -1,0 +1,5 @@
+Error: package or namespace load failed for 'XLConnect':
+ .onLoad failed in loadNamespace() for 'rJava', details:
+  call: fun(libname, pkgname)
+  error: JAVA_HOME cannot be determined from the Registry
+Execution halted

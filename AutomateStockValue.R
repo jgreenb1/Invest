@@ -1,5 +1,5 @@
 ###### Settings
-library(XLConnect)
+library(readxl)
 library(RColorBrewer)
 options(scipen=10)
 col.9<-brewer.pal(9,"Blues")
@@ -9,10 +9,10 @@ today<-as.Date(substr(Sys.time(),0,10))
 today1<-gsub("-","",today)
 
 ###### Loading data
-data<-readWorksheet(loadWorkbook("C:/Users/Jon/Desktop/StockList2.xlsx"),sheet=1)
+data<-read_excel("C:/Users/green/Desktop/StockList2.xlsx")
 
 ###### Create subdirectory
-newdir<-paste0("C:/Users/Jon/Desktop/Investment/StockTracking/Images_",today1)
+newdir<-paste0("C:/Users/green/Desktop/Investment/StockTracking/Images_",today1)
 dir.create(newdir)
 setwd(newdir)
 
